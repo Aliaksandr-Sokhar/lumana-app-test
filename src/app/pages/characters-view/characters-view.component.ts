@@ -10,7 +10,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { CharacterInterface } from '../../interfaces/characters.interface';
 import { ModalWindowComponent } from "../../components/modal-window/modal-window.component";
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
+import { take, tap } from 'rxjs';
 @Component({
   selector: 'app-characters-view',
   imports: [
@@ -56,10 +56,15 @@ export class CharactersViewComponent implements OnInit {
   }
 
   public loadCharacters(event: number) {
-    if (event === this.charactersCount) {
-      this.paginationPage++;
-      this.charactersCount += 15;
-      this.store.dispatch(updateCurrentPage({ currentPage: this.paginationPage }))
-    }
+    this.characters$.pipe(
+      take(1),
+      tap((characters) => {
+        if (event === characters.length - 5) {
+          this.paginationPage++;
+          this.store.dispatch(updateCurrentPage({ currentPage: this.paginationPage }))
+        }
+      }
+      ),
+    ).subscribe();
   }
 }
