@@ -37,26 +37,27 @@ export const appReducer = createReducer(
         appAdapter.addMany(characters, {
             ...state,
             pagination,
+            isLoading: false,
             error: null
         })
     ),
 
-    on(loadCharactersFailure, (state, { error }) => (
-        {
+    on(loadCharactersFailure, (state, { error }) => ({
             ...state,
-            error: error.message || "Something went wrong..."
-        }
-    )),
+            error: "Something went wrong...",
+            isLoading: false
+        })),
 
     on(updateSelectedCharacter, (state, { selectedCharacter }) => ({
         ...state,
-        selectedCharacter
+        selectedCharacter,
+        isLoading: true
     })),
 
-    on(addSearchCharacter, (state, { characterName }) => 
-        ({
+    on(addSearchCharacter, (state, { characterName }) => ({
         ...state,
-        searchCharacters: [...new Set([...state.searchCharacters, characterName])]
+        searchCharacters: [...new Set([...state.searchCharacters, characterName])],
+        isLoading: true
     })),
 
     on(isLoading, (state, { isLoading }) => ({
@@ -66,18 +67,21 @@ export const appReducer = createReducer(
 
     on(updateCurrentPage, (state, { currentPage }) => ({
         ...state,
-        currentPage
+        currentPage,
+        isLoading: true
     })),
 
     on(updateSearchName, (state, { searchName }) => 
         appAdapter.removeAll(({
             ...state,
-            searchName
+            isLoading: true,
+            searchName,
         }))
     ),
 
     on(updateChangedCharacters, (state, { changedCharacters }) => ({
-    ...state,
-    changedCharacters
+        ...state,
+        changedCharacters,
+        isLoading: true
   }))
 );
