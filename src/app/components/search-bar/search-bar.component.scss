@@ -1,0 +1,22 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 500px;
+  font-size: 20px;
+  background-color: white;
+}
+
+.mat-option {
+    font-size: 20px;
+    background-color: rgb(97, 204, 129) !important;
+    z-index: 100;
+    transition: background-color 0.5s ease;
+}
+
+.mat-option:hover {
+    background-color: rgb(2, 253, 57) !important;
+}

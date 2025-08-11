@@ -1,0 +1,18 @@
+<form class="example-form">
+  <mat-form-field appearance="fill" class="example-full-width">
+    <mat-label>Character</mat-label>
+    <input 
+      matInput 
+      placeholder="Find character"
+      aria-label="Character"
+      type="text"
+      [formControl]="searchControl"
+      [matAutocomplete]="auto"
+      >
+      <mat-autocomplete class="mat-option" #auto="matAutocomplete">
+      @for (character of searchedCharacters$ | async; track character) {
+        <mat-option class="mat-option" [value]="character">{{character}}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
