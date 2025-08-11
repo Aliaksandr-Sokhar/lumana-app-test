@@ -2,7 +2,8 @@ import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { CharacterInterface } from "../interfaces/characters.interface";
 import { PaginationInfo } from "../interfaces/pagination.interface";
 import { createReducer, on } from "@ngrx/store";
-import { addSearchCharacter, isLoading, loadCharactersFailure, loadCharactersSuccess, setSearchCharacters, updateCurrentPage, updateSearchName } from "./characters.actions";
+import { addSearchCharacter, isLoading, loadCharactersFailure, loadCharactersSuccess, updateChangedCharacters, updateSelectedCharacter, updateCurrentPage, updateSearchName } from "./characters.actions";
+import { ChangedCanvasCharacter } from "../interfaces/canvas.interface";
 
 export interface ApplicationState extends EntityState<CharacterInterface> {
     isLoading: boolean;
@@ -12,6 +13,7 @@ export interface ApplicationState extends EntityState<CharacterInterface> {
     searchCharacters: string[];
     searchName: null | string;
     currentPage: number;
+    changedCharacters: ChangedCanvasCharacter[]
 }
 
 export const appAdapter: EntityAdapter<CharacterInterface> = createEntityAdapter<CharacterInterface>();
@@ -25,6 +27,7 @@ export const initialState: ApplicationState = appAdapter.getInitialState({
     selectedCharacter: null,
     searchCharacters: [],
     currentPage: 1,
+    changedCharacters: []
 });
 
 export const appReducer = createReducer(
@@ -45,7 +48,7 @@ export const appReducer = createReducer(
         }
     )),
 
-    on(setSearchCharacters, (state, { selectedCharacter }) => ({
+    on(updateSelectedCharacter, (state, { selectedCharacter }) => ({
         ...state,
         selectedCharacter
     })),
@@ -71,5 +74,10 @@ export const appReducer = createReducer(
             ...state,
             searchName
         }))
-    )
+    ),
+
+    on(updateChangedCharacters, (state, { changedCharacters }) => ({
+    ...state,
+    changedCharacters
+  }))
 );

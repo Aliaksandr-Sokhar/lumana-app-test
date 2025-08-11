@@ -1,3 +1,4 @@
+import { ChangedCanvasCharacter } from "../interfaces/canvas.interface";
 import { appAdapter, ApplicationState } from "./characters.reducers";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
@@ -42,3 +43,13 @@ export const selectSearchName = createSelector(
     selectFromStore,
     (state) => state.searchName
 );
+
+export const selectChangedCharacters = createSelector(
+  selectFromStore,
+  (state) => state.changedCharacters,
+);
+
+export const selectChangedCharactersById = (id: number) =>
+  createSelector(selectChangedCharacters, (canvas: ChangedCanvasCharacter[]) =>
+    canvas.find((c) => c.characterId === id),
+  );

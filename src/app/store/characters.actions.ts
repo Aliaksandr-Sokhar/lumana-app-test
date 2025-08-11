@@ -2,6 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import { CharacterInterface } from "../interfaces/characters.interface";
 import { PaginationInfo } from "../interfaces/pagination.interface";
 import { HttpErrorResponse } from "@angular/common/http";
+import { ChangedCanvasCharacter } from "../interfaces/canvas.interface";
 
 export const loadCharacters = createAction('[Characters List] Load Characters');
 
@@ -20,7 +21,7 @@ export const loadCharactersFailure = createAction(
     props<{ error: HttpErrorResponse }>()
 );
 
-export const setSearchCharacters = createAction(
+export const updateSelectedCharacter = createAction(
     '[Character] Set Selected Character',
     props<{ selectedCharacter: CharacterInterface | null }>()
 );
@@ -38,4 +39,9 @@ export const updateCurrentPage = createAction(
 export const updateSearchName = createAction(
     '[Character] Update Search Value',
     props<{ searchName: string }>()
+);
+
+export const updateChangedCharacters = createAction(
+  "[Character] Save Characters Canvas",
+  props<{ changedCharacters: ChangedCanvasCharacter[] }>(),
 );
