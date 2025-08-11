@@ -1,0 +1,20 @@
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.example-viewport {
+  height: 660px;
+  width: 99%;
+  border: 1px solid black;
+  margin-top: 40px;
+}
+
+.example-item {
+  height: 50px;
+}
+
+.cdk-virtual-scroll-viewport {
+    border: none;
+}

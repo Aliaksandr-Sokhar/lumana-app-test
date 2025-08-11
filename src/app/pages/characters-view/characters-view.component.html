@@ -1,1 +1,24 @@
-<p>characters-view works!</p>
+<div class="search-container">
+    <app-search-bar></app-search-bar>
+</div>
+
+@let error = storeError$ | async;
+@if (error) {
+    <h1>{{ error }}</h1>
+}
+
+@if (isLoading$ | async) {
+    <mat-spinner></mat-spinner>
+}
+
+
+<cdk-virtual-scroll-viewport 
+    itemSize="558" 
+    class="example-viewport"
+    (scrolledIndexChange)="loadCharacters($event)"
+    >
+    <app-single-character
+        *cdkVirtualFor="let character of characters$ | async"
+        [character]="character">
+    </app-single-character>
+</cdk-virtual-scroll-viewport>
