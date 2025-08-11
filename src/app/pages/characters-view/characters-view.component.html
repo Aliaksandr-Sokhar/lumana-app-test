@@ -1,27 +1,31 @@
+@let characters = characters$ | async;
+@let error = storeError$ | async;
+
 <div class="search-container">
     <app-search-bar></app-search-bar>
 </div>
 
-@let error = storeError$ | async;
 @if (error) {
-    <h1>{{ error }}</h1>
+    <div class="error-container">
+    </div>
 }
 
 @if (isLoading$ | async) {
     <mat-spinner></mat-spinner>
 }
 
-
-<cdk-virtual-scroll-viewport 
-    itemSize="558" 
-    class="example-viewport"
-    (scrolledIndexChange)="loadCharacters($event)"
-    >
-    <app-single-character
-        *cdkVirtualFor="let character of characters$ | async"
-        [character]="character">
-    </app-single-character>
-</cdk-virtual-scroll-viewport>
+@if (characters && characters.length != 0) {
+    <cdk-virtual-scroll-viewport 
+        itemSize="558" 
+        class="example-viewport"
+        (scrolledIndexChange)="loadCharacters($event)"
+        >
+        <app-single-character
+            *cdkVirtualFor="let character of characters"
+            [character]="character">
+        </app-single-character>
+    </cdk-virtual-scroll-viewport>
+}
 
 @if (selectCharacter) {
     <app-modal-window 
