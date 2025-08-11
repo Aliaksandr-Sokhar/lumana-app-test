@@ -43,8 +43,6 @@ export class CharactersViewComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef)
     )
     .subscribe(character => {
-      console.log(character);
-      
       this.selectCharacter = character
     })
   }
