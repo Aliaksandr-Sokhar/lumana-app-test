@@ -51,13 +51,13 @@ export const appReducer = createReducer(
     on(updateSelectedCharacter, (state, { selectedCharacter }) => ({
         ...state,
         selectedCharacter,
-        isLoading: true
+        isLoading: false
     })),
 
     on(addSearchCharacter, (state, { characterName }) => ({
         ...state,
         searchCharacters: [...new Set([...state.searchCharacters, characterName])],
-        isLoading: true
+        isLoading: false
     })),
 
     on(isLoading, (state, { isLoading }) => ({
