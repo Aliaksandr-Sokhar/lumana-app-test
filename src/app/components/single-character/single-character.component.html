@@ -1,0 +1,17 @@
+<div class="character-container">
+    <div style="width: fit-content; height: fit-content;">
+        <img 
+            [src]="character.image" 
+            [alt]="character.name"
+            height="300"
+            width="300"    
+        >
+    </div>
+    <h2>{{ character.name }}</h2>
+    <div class="text-container">
+        <p class="character-description"><span>Status: </span>{{ character.status }}</p>
+        <p class="character-description"><span>Gender: </span>{{ character.gender }}</p>
+        <p class="character-description"><span>Location: </span>{{ character.location.name }}</p>
+        <p class="character-description"><span>Species: </span>{{ character.species }}</p>
+    </div>
+</div>
