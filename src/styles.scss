@@ -1,4 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
 body {
     margin: 0;
     background-color: rgb(255, 255, 255);
+}
+
+p {
+    margin-left: 0 !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+}
+
+.cdk-virtual-scroll-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+:root {
+  --aqua: rgb(1, 250, 250);
+  --purple: rgb(63, 27, 160);
+  --yellow: rgb(241, 238, 8);
+  --pink: rgb(225, 3, 245);
+  --label-color: rgb(79, 131, 114);
+  --text-color: rgb(15, 172, 120);;
+  --shadow: rgb(10, 243, 165);
+  --border-color: black;
+  --card-background: rgb(50, 54, 53);
 }
