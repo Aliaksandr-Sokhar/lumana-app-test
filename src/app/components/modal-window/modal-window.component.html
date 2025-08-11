@@ -1,0 +1,29 @@
+<div class="modal-overlay" (mousedown)="closeModal()">
+  <div #popup class="modal-content" (mousedown)="$event.stopPropagation()">
+
+    <div class="modal-sidebar">
+      <h3 class="sidebar-title">Editor Panel</h3>
+
+      <div class="action-buttons">
+        <button class="button" (click)="clearAllFigures()">
+          Reset Canvas
+        </button>
+        <button class="button" (click)="persistChangesAndExit()">
+          Save changes
+        </button>
+      </div>
+    </div>
+
+    <div class="canvas-area">
+      <div #resizer class="resizer"></div>
+
+      <div class="canvas-container">
+        <canvas
+          #canvas
+          [style.transform]="'scale(' + zoomLevel() + ')'"
+        ></canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
