@@ -22,3 +22,11 @@
         [character]="character">
     </app-single-character>
 </cdk-virtual-scroll-viewport>
+
+@if (selectCharacter) {
+    <app-modal-window 
+        [activeCharacter]="selectCharacter"
+        (interactionFinished)="isCharacterChange($event)"
+    >
+    </app-modal-window>
+}
