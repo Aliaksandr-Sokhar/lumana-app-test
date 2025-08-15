@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { SearchBarComponent } from "../../components/search-bar/search-bar.component";
 import { Store } from "@ngrx/store";
 import { loadCharacters, updateSelectedCharacter, updateCurrentPage } from '../../store/characters.actions';
-import { selectCharacters, selectError, selectLoading, selectSelectedCharacter } from '../../store/characters.selectors';
+import { selectCharacters, selectCurrentPage, selectError, selectLoading, selectSelectedCharacter } from '../../store/characters.selectors';
 import { SingeCharacterComponent } from "../../components/single-character/single-character.component";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { AsyncPipe } from '@angular/common';
@@ -10,7 +10,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { CharacterInterface } from '../../interfaces/characters.interface';
 import { ModalWindowComponent } from "../../components/modal-window/modal-window.component";
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { take, tap } from 'rxjs';
+import { take, tap, withLatestFrom } from 'rxjs';
 @Component({
   selector: 'app-characters-view',
   imports: [
@@ -31,8 +31,6 @@ export class CharactersViewComponent implements OnInit {
   protected characters$ = this.store.select(selectCharacters);
   protected isLoading$ = this.store.select(selectLoading);
   protected storeError$ = this.store.select(selectError);
-  private paginationPage = 1;
-  private charactersCount = 15;
   private selectedCharacter$ = this.store.select(selectSelectedCharacter);
 
   public selectCharacter: CharacterInterface | null = null;
@@ -57,14 +55,14 @@ export class CharactersViewComponent implements OnInit {
 
   public loadCharacters(event: number) {
     this.characters$.pipe(
-      take(1),
-      tap((characters) => {
+      withLatestFrom(this.store.select(selectCurrentPage)),
+      take(1), 
+      tap(([characters, currentPage]) => {
         if (event === characters.length - 5) {
-          this.paginationPage++;
-          this.store.dispatch(updateCurrentPage({ currentPage: this.paginationPage }))
+          currentPage++;
+          this.store.dispatch(updateCurrentPage({ currentPage }))
         }
-      }
-      ),
+      }),
     ).subscribe();
   }
 }

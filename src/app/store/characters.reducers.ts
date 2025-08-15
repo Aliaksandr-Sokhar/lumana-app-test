@@ -2,7 +2,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { CharacterInterface } from "../interfaces/characters.interface";
 import { PaginationInfo } from "../interfaces/pagination.interface";
 import { createReducer, on } from "@ngrx/store";
-import { addSearchCharacter, isLoading, loadCharactersFailure, loadCharactersSuccess, updateChangedCharacters, updateSelectedCharacter, updateCurrentPage, updateSearchName } from "./characters.actions";
+import { addSearchCharacter, loadCharactersFailure, loadCharactersSuccess, updateChangedCharacters, updateSelectedCharacter, updateCurrentPage, updateSearchName } from "./characters.actions";
 import { ChangedCanvasCharacter } from "../interfaces/canvas.interface";
 
 export interface ApplicationState extends EntityState<CharacterInterface> {
@@ -60,22 +60,18 @@ export const appReducer = createReducer(
         isLoading: false
     })),
 
-    on(isLoading, (state, { isLoading }) => ({
-        ...state,
-        isLoading
-    })),
-
     on(updateCurrentPage, (state, { currentPage }) => ({
         ...state,
         currentPage,
         isLoading: true
     })),
 
-    on(updateSearchName, (state, { searchName }) => 
+    on(updateSearchName, (state, { searchName, currentPage }) => 
         appAdapter.removeAll(({
             ...state,
             isLoading: true,
             searchName,
+            currentPage
         }))
     ),
 

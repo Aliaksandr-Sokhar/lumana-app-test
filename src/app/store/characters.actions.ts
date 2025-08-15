@@ -6,11 +6,6 @@ import { ChangedCanvasCharacter } from "../interfaces/canvas.interface";
 
 export const loadCharacters = createAction('[Characters List] Load Characters');
 
-export const isLoading = createAction(
-    '[API Request] Page is Loading',
-    props<{ isLoading: boolean }>()
-);
-
 export const loadCharactersSuccess = createAction(
     '[Characters List] Load Characters Success',
     props<{ characters: CharacterInterface[], pagination: PaginationInfo }>()
@@ -38,7 +33,7 @@ export const updateCurrentPage = createAction(
 
 export const updateSearchName = createAction(
     '[Character] Update Search Value',
-    props<{ searchName: string }>()
+    props<{ searchName: string, currentPage: number }>()
 );
 
 export const updateChangedCharacters = createAction(

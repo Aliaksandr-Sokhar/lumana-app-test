@@ -53,8 +53,7 @@ export class SearchBarComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
         debounceTime(SEARCH_DELAY),
         tap((value) => {
-          this.store.dispatch(updateCurrentPage({ currentPage: 1 })),
-          this.store.dispatch(updateSearchName({ searchName: value || "" }))
+          this.store.dispatch(updateSearchName({ searchName: value || "", currentPage: 1 }));
         })
       )
       .subscribe();
