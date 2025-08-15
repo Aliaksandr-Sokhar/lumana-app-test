@@ -140,7 +140,7 @@ export class ModalWindowComponent implements OnInit, AfterViewInit, OnDestroy {
     return distance <= closingRadius;
   }
   
-private renderAllFigures(): void {
+  private renderAllFigures(): void {
     const ctx = this.context();
     ctx.clearRect(0, 0, this.canvas().width, this.canvas().height);
     this.figureCollection.forEach((figure) => figure.render(ctx));
