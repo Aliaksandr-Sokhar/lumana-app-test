@@ -8,8 +8,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { selectSearchCharacters } from '../../store/characters.selectors';
 import { AsyncPipe } from '@angular/common';
-import { combineLatest, debounceTime, map, tap } from 'rxjs';
-import { updateCurrentPage, updateSearchName } from '../../store/characters.actions';
+import { combineLatest, debounceTime, distinctUntilChanged, map, tap } from 'rxjs';
+import { updateSearchName } from '../../store/characters.actions';
 import { SEARCH_DELAY } from '../../consts/delay.const';
 
 @Component({
@@ -50,6 +50,7 @@ export class SearchBarComponent implements OnInit {
   ngOnInit(): void {
     this.searchControl.valueChanges
       .pipe(
+        distinctUntilChanged(),
         takeUntilDestroyed(this.destroyRef),
         debounceTime(SEARCH_DELAY),
         tap((value) => {
