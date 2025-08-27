@@ -22,7 +22,6 @@ export const initialState: ApplicationState = appAdapter.getInitialState({
     isLoading: false,
     error: null,
     pagination: null,
-    entities: [],
     searchName: null,
     selectedCharacter: null,
     searchCharacters: [],
